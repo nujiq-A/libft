@@ -14,12 +14,16 @@
 
 void	*ft_calloc(size_t nitems, size_t size)
 {
-	void	*temp;
+	void			*temp;
+	size_t			n;
 
-	if (size == SIZE_MAX || nitems == SIZE_MAX)
+	n = nitems * size;
+	if (n < nitems || n < size)
 		return (NULL);
-	temp = (void *)malloc(size * nitems);
-	if (temp == NULL)
+	temp = (void *)malloc(n);
+	if (!temp)
 		return (NULL);
-	return (ft_memset(temp, 0, size * nitems));
+	while (n--)
+		*((unsigned char *)temp + n) = 0;
+	return (temp);
 }
